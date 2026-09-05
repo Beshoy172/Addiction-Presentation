@@ -23,33 +23,31 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
         }
 
         body {
             background-color: var(--bg);
             color: var(--text-light);
-            line-height: 1.6;
+            line-height: 1.5;
             padding: 20px;
         }
 
         .container {
-            max-width: 1050px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        /* هيدر التحكم */
+        /* شريط التحكم */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: rgba(30, 41, 59, 0.9);
-            backdrop-filter: blur(10px);
             padding: 15px 25px;
             border-radius: 12px;
             margin-bottom: 30px;
-            position: sticky;
-            top: 20px;
-            z-index: 100;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -65,25 +63,22 @@
             align-items: center;
             gap: 8px;
             font-size: 1rem;
-            transition: 0.3s;
         }
 
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.4);
-        }
-
-        /* تصميم الشرايح */
+        /* تصميم الشرائح */
         .slide {
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 40px;
-            margin-bottom: 35px;
+            padding: 35px;
+            margin-bottom: 30px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            page-break-after: always;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            height: 620px; /* ارتفاع ثابت يناسب مقاس A4 بالعرض */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .slide::before {
@@ -98,16 +93,16 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
         }
 
         .slide-title {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             color: var(--accent);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .slide-number {
@@ -118,53 +113,51 @@
             border-radius: 20px;
         }
 
-        /* شبكات العرض */
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
         }
 
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
         }
 
         .feature-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 22px;
+            padding: 18px;
             border-radius: 12px;
         }
 
         .feature-box i {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--secondary);
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .feature-box h4 {
-            font-size: 1.15rem;
-            margin-bottom: 8px;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
             color: var(--text-light);
         }
 
         .feature-box p, .feature-box ul {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         .feature-box ul {
             list-style: none;
-            padding: 0;
         }
 
         .feature-box ul li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             position: relative;
-            padding-right: 18px;
+            padding-right: 15px;
         }
 
         .feature-box ul li::before {
@@ -177,16 +170,16 @@
 
         .cover-slide {
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, rgba(0,79,64,0.4), rgba(2,132,199,0.3));
+            padding: 50px 20px;
+            background: linear-gradient(135deg, rgba(0,79,64,0.5), rgba(2,132,199,0.4));
+            justify-content: center;
+            align-items: center;
         }
 
         .cover-title {
-            font-size: 3.2rem;
+            font-size: 3rem;
             margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
         }
 
         .badge {
@@ -199,19 +192,52 @@
             margin-bottom: 20px;
         }
 
-        /* الطباعة إلى PDF */
+        /* ========================================================= */
+        /* إعدادات الطباعة وتحويل الـ PDF المضبوطة 100% */
+        /* ========================================================= */
+        @page {
+            size: A4 landscape; /* وضع الشريحة العرضي مثل باوربوينت */
+            margin: 0; /* إلغاء الهوامش المزعجة */
+        }
+
         @media print {
-            body { background-color: white; color: #1e293b; padding: 0; }
-            .top-bar { display: none; }
-            .slide {
-                background: white; color: #1e293b; border: 1px solid #ccc;
-                box-shadow: none; margin-bottom: 0; page-break-after: always;
+            html, body {
+                background-color: var(--bg) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
             }
-            .slide-title { color: #004d40; }
-            .feature-box { background: #f8fafc; border: 1px solid #e2e8f0; }
-            .feature-box h4 { color: #0f172a; }
-            .feature-box p, .feature-box ul { color: #475569; }
-            .cover-title { background: none; -webkit-text-fill-color: #004d40; }
+
+            .top-bar {
+                display: none !important; /* إخفاء الأزرار */
+            }
+
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .slide {
+                width: 100vw !important;
+                height: 100vh !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                border: none !important;
+                page-break-after: always !important; /* اجبار كل شريحة في صفحة */
+                page-break-inside: avoid !important;
+                box-shadow: none !important;
+                padding: 40px 50px !important;
+                background-color: var(--card-bg) !important;
+            }
+
+            .cover-slide {
+                background: linear-gradient(135deg, rgba(0,79,64,0.8), rgba(2,132,199,0.7)) !important;
+            }
         }
     </style>
 </head>
@@ -221,19 +247,21 @@
     <div class="top-bar">
         <div>
             <h2>مشروع منصة تعافي (T3afy) - العرض الشامل</h2>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">12 شريحة تفصيلية تغطي كل أركان المنصة</p>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">اضغط حفظ لتنزيل ملف PDF مضبوط المقاسات بالضبط</p>
         </div>
         <button class="btn-download" onclick="window.print()">
-            <i class="fa-solid fa-file-pdf"></i> تحميل كـ PDF / طباعة
+            <i class="fa-solid fa-file-pdf"></i> حفظ كـ PDF للمسابقة
         </button>
     </div>
 
     <!-- الشريحة 1: الغلاف -->
     <div class="slide cover-slide">
-        <span class="badge"><i class="fa-solid fa-heart-pulse"></i> المنصة العربية المتكاملة للتعافي الذاتي</span>
-        <h1 class="cover-title">منصة تعافي (T3afy)</h1>
-        <p style="font-size: 1.3rem; color: var(--text-muted); margin-bottom: 20px;">دليلك العلمي والتفاعلي للتغلب على الإدمان والعادات السلبية</p>
-        <p><strong>الرابط المباشر للمشروع:</strong> https://t3afy.vercel.app/</p>
+        <div>
+            <span class="badge"><i class="fa-solid fa-heart-pulse"></i> المنصة العربية المتكاملة للتعافي الذاتي</span>
+            <h1 class="cover-title">منصة تعافي (T3afy)</h1>
+            <p style="font-size: 1.3rem; color: var(--text-muted); margin-bottom: 20px;">دليلك العلمي والتفاعلي للتغلب على الإدمان والعادات السلبية</p>
+            <p><strong>الرابط المباشر للمشروع:</strong> https://t3afy.vercel.app/</p>
+        </div>
     </div>
 
     <!-- الشريحة 2: الرؤية والمشكلة -->
@@ -254,6 +282,7 @@
                 <p>بناء مجتمع واعٍ قادر على التعافي الذاتي بخصوصية مطلقة وبلا قيود مالية أو اجتماعية، من خلال توفير أدوات تكنولوجية تفاعلية ومجانية بالكامل.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 3: مجالات الإدمان الخمسة -->
@@ -289,6 +318,7 @@
                 <p>التوعية بالخطوات الطبية والسلوكية للتعاطي وخطوات الخروج الآمن والتواصل الصحي.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 4: أدوات الحاسبة والحفظ -->
@@ -317,6 +347,7 @@
                 </ul>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 5: إدارة الشهوة القهرية وزر الطوارئ -->
@@ -337,6 +368,7 @@
                 <p>يعتمد العلم النفسي على أن الموجه الإدمانية تستمر لـ 90 ثانية فقط؛ يوفر الموقع تنفيذاً عملياً لتنفس عميق وتمارين حركية للعبور بأمان.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 6: قائمة المحفزات التفاعلية -->
@@ -345,7 +377,6 @@
             <h2 class="slide-title"><i class="fa-solid fa-list-check"></i> 3. قائمة المحفزات التفاعلية (Triggers Checklist)</h2>
             <span class="slide-number">الشريحة 05</span>
         </div>
-        <p style="margin-bottom: 20px; color: var(--text-muted);">أداة مبتكرة يحدد فيها المستخدم سبب رغبته القهرية فوراً ليصل للبديل المباشر:</p>
         <div class="grid-2">
             <div class="feature-box">
                 <h4><i class="fa-solid fa-mug-hot"></i> محفز القهوة / الصباح</h4>
@@ -364,6 +395,7 @@
                 <p><b>الحل المباشر:</b> إرشادات سريعة لتحويل الشاشة للأبيض والأسود وتفعيل وضع عدم الإزعاج.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 7: التقنيات النفسية المجربة -->
@@ -384,6 +416,7 @@
                 <p>أداة لقطع نوبات التوتر بالتركيز على: 5 أشياء تراها، 4 تلمسها، 3 تسمعها، شيئين تشمهما، وشيء تتذوقه لتعود للواقع.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 8: جداول التعافي والتدرج -->
@@ -404,6 +437,7 @@
                 <p>جدول زمني يوضح للمتعافي المكاسب الحيوية التي يحصل عليها جسمه ورئتاه وعقله (بعد 20 دقيقة، 8 ساعات، 24 ساعة، وأشهر).</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 9: المحتوى التوعوي والمرئي -->
@@ -424,6 +458,7 @@
                 <p>ملخصات لأهم الكتب العالمية في تغيير العادات (مثل كتاب العادات الذرية) ومقالات مبسطة تشرح كيمياء الدوبامين.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 10: تجربة المستخدم والتصميم -->
@@ -449,6 +484,7 @@
                 <p>إمكانية التنقل السلس بين الأقسام الخمسة والعودة للرئيسية بضغطة زر واحدة من أي صفحة.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 11: المعمارية البرمجية -->
@@ -467,15 +503,18 @@
                 <p>مشروع مرفوع بالكامل على <b>Vercel Edge Network</b> لضمان استقرار الخوادم مجاناً وحمايتها من التوقف بنسبة 99.9%.</p>
             </div>
         </div>
+        <div></div>
     </div>
 
     <!-- الشريحة 12: الختام -->
     <div class="slide cover-slide">
-        <span class="badge"><i class="fa-solid fa-flag-checkered"></i> ختام العرض التقديمي</span>
-        <h2 style="font-size: 2.2rem; margin-bottom: 15px; color: var(--accent);">منصة "تعافي" - رفيقك نحو بداية جديدة</h2>
-        <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 25px;">نشكركم على حسن الاستماع واهتمامكم بدعم المشاريع ذات الأثر المجتمعي المستدام.</p>
-        <div style="background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 8px; display: inline-block;">
-            <p>🔗 <b>تفضل بزيارة واستكشاف المنصة الحية:</b> https://t3afy.vercel.app/</p>
+        <div>
+            <span class="badge"><i class="fa-solid fa-flag-checkered"></i> ختام العرض التقديمي</span>
+            <h2 style="font-size: 2.2rem; margin-bottom: 15px; color: var(--accent);">منصة "تعافي" - رفيقك نحو بداية جديدة</h2>
+            <p style="font-size: 1.2rem; color: var(--text-light); margin-bottom: 25px;">نشكركم على حسن الاستماع واهتمامكم بدعم المشاريع ذات الأثر المجتمعي المستدام.</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 8px; display: inline-block;">
+                <p>🔗 <b>تفضل بزيارة واستكشاف المنصة الحية:</b> https://t3afy.vercel.app/</p>
+            </div>
         </div>
     </div>
 
